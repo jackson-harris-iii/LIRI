@@ -110,11 +110,17 @@ function getTweets() {
      let search = songQuery
      spotify.search({
          type: kind,
-         query: search
+         query: search,
+         limit: 1,
         }, function(err,data){
           if(err){
               return console.log('Error occured: ' + err)
-          } 
-          console.log(data) 
+          }
+          console.log('-------------')
+          console.log('Title: ' + data.tracks.items[0].name)
+          console.log('Artist: ' + data.tracks.items[0].artists[0].name) 
+          console.log('Album Name: ' + data.tracks.items[0].album.name)   
+          console.log('Preview URL' + data.tracks.items[0].preview_url)
+          console.log('-------------') 
         })
  }
