@@ -48,12 +48,23 @@ prompt(greetings).then(answer => {
    
     if (options == 'twitterOptions'){
         prompt(twitterOptions).then( response => {
-            console.log(response)
+           if (response.choice == 'getTweets'){
+               getTweets()
+           }
         })
     }    
    
 })
 
 function getTweets() {
-     
+    let params = { screen_name: 'DuckMelvyn'}
+    client.get('statuses/user_timeline', params, function (err, tweets, response) {
+        if (!err){
+            tweets.forEach(element => {
+                console.log('-------------')
+                console.log(element.text)
+                console.log('-------------')
+            });
+        }
+    })
  } 
