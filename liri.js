@@ -39,6 +39,29 @@ var twitterOptions = [
     }
 ]
 
+var spotifyOptions = [
+    {
+        type: 'list',
+        choices: [
+            {
+                name: 'by Title',
+                value: 'songTitle'
+            }
+        ],
+        name: 'choice',
+        message: 'How would you like to look up a song?'
+    }
+]
+
+var songTitle = [
+    {
+        type: 'input',
+        message: "Enter the title of the song you'd like some info on.",
+        name: 'input'
+    }    
+
+]
+
 var prompt = inquirer.createPromptModule();
 
 prompt(greetings).then(answer => {
@@ -52,7 +75,20 @@ prompt(greetings).then(answer => {
                getTweets()
            }
         })
-    }    
+    }
+    
+    else if (options == 'spotifyOptions'){
+        prompt(spotifyOptions).then( response => {
+            
+            if (response.choice == 'songTitle'){
+               prompt(songTitle).then(response =>{
+                   let song = response.input
+                   let type = 'track'
+                   getSong(type, song)
+               })      
+            }
+        })
+    }
    
 })
 
@@ -68,3 +104,17 @@ function getTweets() {
         }
     })
  } 
+
+ function getSong(searchType, songQuery) {
+     let kind = searchType
+     let search = songQuery
+     spotify.search({
+         type: kind,
+         query: search
+        }, function(err,data){
+          if(err){
+              return console.log('Error occured: ' + err)
+          } 
+          console.log(data) 
+        })
+ }
