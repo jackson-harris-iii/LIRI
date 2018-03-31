@@ -145,12 +145,19 @@ prompt(greetings).then(answer => {
     else{
        fs.readFile('random.txt', 'utf8', (err,data) =>{
         if(err) throw err;
-           console.log(data)   
+        console.log(data)
+        let info = data.split(',')
+        let song = info[1]
+        let type = 'track'
+        getSong(type, song)
+
+  
        })
     
     }
    
 })
+
 
 function getTweets() {
     let params = { screen_name: 'DuckMelvyn'}
