@@ -5,6 +5,7 @@ var Twitter = require('twitter');
 var inquirer = require('inquirer');
 var Spotify = require('node-spotify-api');
 var request = require('request');
+var fs = require('fs')
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -139,6 +140,14 @@ prompt(greetings).then(answer => {
                 })
             }
         })
+    }
+
+    else{
+       fs.readFile('random.txt', 'utf8', (err,data) =>{
+        if(err) throw err;
+           console.log(data)   
+       })
+    
     }
    
 })
